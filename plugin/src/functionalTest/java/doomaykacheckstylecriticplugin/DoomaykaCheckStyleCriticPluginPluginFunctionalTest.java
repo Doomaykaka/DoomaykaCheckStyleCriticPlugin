@@ -47,7 +47,7 @@ class DoomaykaCheckStyleCriticPluginPluginFunctionalTest {
         // Verify the result
         //assertTrue(result.getOutput().contains("Hello from plugin 'doomaykacheckstylecriticplugin.greeting'"));
         //assertTrue(result.getOutput().contains("Nt"), result.getOutput());
-        assertFalse(result.getOutput().contains("Nt"), result.getOutput());
+        assertTrue(!result.getOutput().contains("Nt"), result.getOutput());
     }
 
     private void writeString(File file, String string) throws IOException {
