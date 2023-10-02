@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.io.FileWriter;
-import java.nio.file.Files;
 import org.gradle.testkit.runner.GradleRunner;
 import org.gradle.testkit.runner.BuildResult;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,8 @@ import org.junit.jupiter.api.io.TempDir;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * A simple functional test for the 'doomaykacheckstylecriticplugin.greeting' plugin.
+ * A simple functional test for the 'doomaykacheckstylecriticplugin.greeting'
+ * plugin.
  */
 class DoomaykaCheckStyleCriticPluginPluginFunctionalTest {
     @TempDir
@@ -29,25 +29,40 @@ class DoomaykaCheckStyleCriticPluginPluginFunctionalTest {
         return new File(projectDir, "settings.gradle");
     }
 
-    @Test void canRunTask() throws IOException {
+    @Test
+    void canRunTask() throws IOException {
         writeString(getSettingsFile(), "");
-        writeString(getBuildFile(),
-            "plugins {" +
-            "  id('doomaykacheckstylecriticplugin.parseReport')" +
-            "}");
+        writeString(getBuildFile(), 
+                        "plugins {" 
+                        + "  id('doomaykacheckstylecriticplugin.parseReport')" 
+                        + "}"
+        );
+        
+        boolean resultExpression = false;
 
         // Run the build
-        GradleRunner runner = GradleRunner.create();
-        runner.forwardOutput();
-        runner.withPluginClasspath();
-        runner.withArguments("-Dorg.gradle.vfs.watch=false parseReport");
-        runner.withProjectDir(projectDir);
-        BuildResult result = runner.build();
+        try {
 
-        // Verify the result
-        //assertTrue(result.getOutput().contains("Hello from plugin 'doomaykacheckstylecriticplugin.greeting'"));
-        //assertTrue(result.getOutput().contains("Nt"), result.getOutput());
-        assertTrue(!result.getOutput().contains("Nt"), result.getOutput());
+            GradleRunner runner = GradleRunner.create();
+            runner.forwardOutput();
+            runner.withPluginClasspath();
+            runner.withArguments("parseReport");
+            runner.withProjectDir(projectDir);
+            BuildResult result = runner.build();
+            
+            resultExpression = result.getOutput().contains(
+                    "Config file not parsed\r\n"
+                    + "XML not founded"
+                            );
+        } catch (IllegalStateException e) {
+            System.out.println("Gradle problems");
+            resultExpression = e.getMessage().contains(
+                    "Config file not parsed\r\n"
+                    + "XML not founded"
+                            );
+        }
+        
+        assertTrue(resultExpression);
     }
 
     private void writeString(File file, String string) throws IOException {

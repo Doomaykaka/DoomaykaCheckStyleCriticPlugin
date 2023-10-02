@@ -4,18 +4,19 @@
 package doomaykacheckstylecriticplugin;
 
 import org.gradle.api.Project;
-
+import org.gradle.tooling.GradleConnectionException;
 import org.gradle.api.Plugin;
 
 public class DoomaykaCheckStyleCriticPluginPlugin implements Plugin<Project> {
     public void apply(Project project) {
+
         // Register a task
-        project.getTasks().register("parseReport", task -> { 
+        project.getTasks().register("parseReport", task -> {
             String property = null;
-            if(task.hasProperty("param")) {
-                property = (String) task.property("param");
-                System.out.println(property);
-            }
+            // if(task.hasProperty("param")) {
+            // property = (String) task.property("param");
+            // System.out.println(property);
+            // }
             task.doLast(s -> App.start(new String[0]));
         });
     }
