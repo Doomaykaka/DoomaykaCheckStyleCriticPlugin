@@ -9,12 +9,16 @@
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '1.2.1'
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+
+version = '1.0.0'
+group = 'doomaykacheckstylecriticplugin'
 
 dependencies {  
     implementation "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
@@ -25,36 +29,21 @@ dependencies {
 }
 
 gradlePlugin {
+	website = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
+  	vcsUrl = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
     // Define the plugin
     plugins {
         parseReport {
             id = 'doomaykacheckstylecriticplugin.parseReport'
+            group = 'doomaykacheckstylecriticplugin.parseReport'
             implementationClass = 'doomaykacheckstylecriticplugin.DoomaykaCheckStyleCriticPluginPlugin'
         	version = "1.0.0"
-        }
-    }
-}
-
-// Add a source set for the functional test suite
-sourceSets {
-    functionalTest {
-    }
-}
-
-configurations.functionalTestImplementation.extendsFrom(configurations.testImplementation)
-
-// Add a task to run the functional tests
-tasks.register('functionalTest', Test) {
-    testClassesDirs = sourceSets.functionalTest.output.classesDirs
-    classpath = sourceSets.functionalTest.runtimeClasspath
-    useJUnitPlatform()
-}
-
-gradlePlugin.testSourceSets(sourceSets.functionalTest)
-
-tasks.named('check') {
-    // Run the functional tests as part of `check`
-    dependsOn(tasks.functionalTest)
+        	displayName = 'CheckStyle critic plugin'
+        	description = 'CheckStyle critic plugin'
+        	tags.set(['lint', 'style', 'jylint'])
+        	//name == parseReport
+        }  
+    }      
 }
 
 tasks.named('test') {

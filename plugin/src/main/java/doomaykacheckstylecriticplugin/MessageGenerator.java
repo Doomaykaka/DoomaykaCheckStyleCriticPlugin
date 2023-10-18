@@ -25,10 +25,10 @@ public class MessageGenerator {
                     int refactorsCounter, 
                     int conventionsCounter, 
                     String[] messages) {
-        if (messages == null) {
+        //if (messages == null) {
             messages = new String[] { "\\\\Doomayka CheckStyle critic//", "Lines prepared: %lc",
                     "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10", "Result: %r" };
-        }
+        //}
 
         this.messages = messages;
 

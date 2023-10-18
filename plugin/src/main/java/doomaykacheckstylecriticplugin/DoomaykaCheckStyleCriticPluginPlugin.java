@@ -10,14 +10,13 @@ import org.gradle.api.Plugin;
 public class DoomaykaCheckStyleCriticPluginPlugin implements Plugin<Project> {
     public void apply(Project project) {
 
+        // Create extension for plugin
+        DoomaykaCheckStyleCriticPluginExtension extension = project.getExtensions().create("CheckStyleCritic",
+                DoomaykaCheckStyleCriticPluginExtension.class);
+
         // Register a task
         project.getTasks().register("parseReport", task -> {
-            String property = null;
-            // if(task.hasProperty("param")) {
-            // property = (String) task.property("param");
-            // System.out.println(property);
-            // }
-            task.doLast(s -> App.start(new String[0]));
+            task.doLast(s -> App.start(project, extension));
         });
     }
 }

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.gradle.api.Project;
+
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -24,11 +26,11 @@ public class CheckStyleParser {
 
     private CheckStyleModel data = null;
 
-    public CheckStyleParser() {
+    public CheckStyleParser(Project project) {
         try {
             String separator = "";
-
-            checkRootPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().toString();
+            
+            checkRootPath = project.getProjectDir().toURI().toString();
             int dirSlashIdx = 0;
             dirSlashIdx = checkRootPath.lastIndexOf("/");
             if (dirSlashIdx != -1) {
@@ -43,7 +45,7 @@ public class CheckStyleParser {
                     throw new URISyntaxException("checkRootPathString", "Bad path");
                 }
             }
-
+            
             dirSlashIdx = checkRootPath.indexOf(separator);
             checkRootPath = checkRootPath.substring(dirSlashIdx + 1);
 
@@ -56,8 +58,8 @@ public class CheckStyleParser {
         rootFilesPathStrings = new ArrayList<String>();
     }
 
-    public CheckStyleParser(String xmlName) {
-        this();
+    public CheckStyleParser(Project project, String xmlName) {
+        this(project);
         XMLname = xmlName;
     }
 
@@ -69,12 +71,12 @@ public class CheckStyleParser {
 
     public void readXML() {
         try {
-            if (XMLpath.equals("")) {
+            if (XMLpath.equals("")) {   
                 File rootDir = new File(checkRootPath);
                 String[] files = rootDir.list();
 
                 buildPathsRecursive(files, checkRootPath);
-
+                
                 if (rootFilesPathStrings.size() == 0) {
                     throw new FileNotFoundException("XML not founded");
                 }

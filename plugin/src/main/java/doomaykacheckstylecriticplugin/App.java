@@ -1,54 +1,48 @@
 package doomaykacheckstylecriticplugin;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.gradle.api.Project;
+
 public class App {
-    public static void start(String[] args) {   
-        // Config path using
-        ConfigReader cr;
-        if (args.length > 0) {
-            if ((args[0] != null) && (args[0].length() > 0)) {
-                cr = new ConfigReader(args[0]);
-            } else {
-                cr = new ConfigReader();
-            }
-        } else {
-            cr = new ConfigReader();
-        }
+    public static void start(Project project, DoomaykaCheckStyleCriticPluginExtension extension) {   
+        System.out.println("Start");
+        
+        // User script variables
+        String XMLpath = extension.getXMLpath();
+        String XMLname = extension.getXMLname();
 
-        cr.readConfig();
+        List<String> errorMessages = Arrays.asList(extension.getErrorMessages());
+        List<String> warningMessages = Arrays.asList(extension.getWarningMessages());
+        List<String> refactorMessages = Arrays.asList(extension.getRefactorMessages());
+        List<String> conventionMessages = Arrays.asList(extension.getConventionMessages());
 
-        String XMLpath = cr.getXMLpath();
-        String XMLname = cr.getXMLname();
-
-        List<String> errorMessages = cr.getErrorMessages();
-        List<String> warningMessages = cr.getWarningMessages();
-        List<String> refactorMessages = cr.getRefactorMessages();
-        List<String> conventionMessages = cr.getConventionMessages();
-
-        int errorMultiplier = cr.getErrorMultiplier();
-        int warningMultiplier = cr.getWarningMultiplier();
-        int refactorMultiplier = cr.getRefactorMultiplier();
-        int conventionMultiplier = cr.getConventionMultiplier();
+        int errorMultiplier = extension.getErrorMultiplier();
+        int warningMultiplier = extension.getWarningMultiplier();
+        int refactorMultiplier = extension.getRefactorMultiplier();
+        int conventionMultiplier = extension.getConventionMultiplier();
         
         // Console messages
-        String[] messages = cr.getMessages();
+        String[] messages = extension.getMessages();
+        
+        System.out.println("Values parsed");//
 
         CheckStyleParser csp;
 
-        csp = new CheckStyleParser();
+        csp = new CheckStyleParser(project);
 
-        if ((XMLname != null)) {
-            csp = new CheckStyleParser(XMLname);
+        if (!XMLname.isEmpty()) {
+            csp = new CheckStyleParser(project, XMLname);
         }
 
-        if ((XMLpath != null) && (XMLname != null)) {
+        if ((!XMLpath.isEmpty()) && (!XMLname.isEmpty())) {
             csp = new CheckStyleParser(XMLpath, XMLname);
         }
 
         csp.readXML();
         CheckStyleModel model = csp.getXmlUnparsed();
-
+        System.out.println("CheckStyle parsed");//
         CodeCounter counter = new CodeCounter(
                                   model, 
                                   errorMultiplier, 
@@ -57,19 +51,19 @@ public class App {
                                   conventionMultiplier
                                   );
 
-        if (errorMessages != null) {
+        if (!errorMessages.isEmpty()) {
             counter.setErrorMessages(errorMessages);
         }
 
-        if (warningMessages != null) {
+        if (!warningMessages.isEmpty()) {
             counter.setWarningMessages(warningMessages);
         }
 
-        if (refactorMessages != null) {
+        if (!refactorMessages.isEmpty()) {
             counter.setRefactorMessages(refactorMessages);
         }
 
-        if (conventionMessages != null) {
+        if (!conventionMessages.isEmpty()) {
             counter.setConventionMessages(conventionMessages);
         }
 
@@ -90,5 +84,7 @@ public class App {
                                           messages
                                           );
         mGenerator.printMessages();
+        
+        System.out.println("Final");//
     }
 }
