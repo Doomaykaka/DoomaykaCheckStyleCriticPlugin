@@ -6,18 +6,62 @@ package doomaykacheckstylecriticplugin;
 import org.gradle.testfixtures.ProjectBuilder;
 import org.gradle.api.Project;
 import org.junit.jupiter.api.Test;
+
+import doomaykacheckstylecriticplugin.MessageGenerator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 /**
- * A simple unit test for the 'doomaykacheckstylecriticplugin.parseReport' plugin.
+ * A simple unit test for the 'doomaykacheckstylecriticplugin.parseReport'
+ * plugin.
  */
 class DoomaykaCheckStyleCriticPluginPluginTest {
-    @Test void pluginRegistersATask() {
+    @Test
+    void pluginRegistersATask() {
         // Create a test project and apply the plugin
         Project project = ProjectBuilder.builder().build();
         project.getPlugins().apply("doomaykacheckstylecriticplugin.parseReport");
 
         // Verify the result
         assertNotNull(project.getTasks().findByName("parseReport"));
+    }
+
+    @Test
+    void appHasARightMessageGenerator() {
+        String result = "";
+        String rightResult = "\\\\Doomayka CheckStyle critic//\r\n" + "Lines prepared: 2500\r\n"
+                + "By expression: 10-((1*250+0*0+0*0+0*0)/2500)*10\r\n" + "Result: 9.0\r\n";
+
+        // Stream for printing in buffer
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        PrintStream old = System.out;
+
+        System.setOut(ps);
+
+        float rating = (float) 9.0;
+        long linesCount = 2500;
+        int errorMultiplier = 1;
+        int warningMultiplier = 0;
+        int refactorMultiplier = 0;
+        int conventionMultiplier = 0;
+        int errorsCounter = 250;
+        int warningsCounter = 0;
+        int refactorsCounter = 0;
+        int conventionsCounter = 0;
+        String[] messages = { "\\\\Doomayka CheckStyle critic//", "Lines prepared: %lc",
+                "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10", "Result: %r" };
+
+        MessageGenerator msgGenerator = new MessageGenerator(rating, 2500, 1, 0, 0, 0, 250, 0, 0, 0, null);
+
+        msgGenerator.printMessages();
+        result = baos.toString();
+
+        assertEquals(rightResult, result);
+
+        System.setOut(old);
     }
 }
