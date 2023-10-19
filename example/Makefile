@@ -6,8 +6,10 @@ help:
 	@echo "make run: application launch"
 	@echo "make build: building an application"
 	@echo "make clean: deleting an existing application build"
+	@echo "make install: installing the plugin"
+	@echo "make checkApp: launching the plugin"
 about:
-	@echo "Web application for passing tests"
+	@echo "Gradle plugin for assessing code quality based on CheckStyle reports"
 run:
 	gradle run
 build:
