@@ -25,8 +25,6 @@ public class App {
         
         // Console messages
         String[] messages = extension.getMessages();
-        
-        System.out.println("Values parsed");//
 
         CheckStyleParser csp;
 
@@ -42,7 +40,7 @@ public class App {
 
         csp.readXML();
         CheckStyleModel model = csp.getXmlUnparsed();
-        System.out.println("CheckStyle parsed");//
+        
         CodeCounter counter = new CodeCounter(
                                   model, 
                                   errorMultiplier, 
@@ -84,7 +82,5 @@ public class App {
                                           messages
                                           );
         mGenerator.printMessages();
-        
-        System.out.println("Final");//
     }
 }
