@@ -13,6 +13,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class CheckStyleFileModel {
     @XmlAttribute(name = "name")
     private String fileName;
+
     @XmlElement(name = "error")
     private List<CheckStyleErrorModel> errors = null;
 

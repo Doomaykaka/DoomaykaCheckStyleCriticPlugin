@@ -1,4 +1,5 @@
 # DoomaykaCheckStyleCriticPlugin (Плагин gradle для оценки качества кода на основе отчётов CheckStyle)
+
 ## Возможности
 
 Данная утилита имеет следующие возможности:
@@ -34,29 +35,29 @@
 MyProject/app
 ```
 
-Необходимо перенести содержимое своего build.gradle скрипта в новый 
+Необходимо перенести содержимое своего build.gradle скрипта в новый
 с сохранением данных блоков:
 
 ```groovy
-buildscript {		
-	repositories {
-		flatDir { dirs 'build/tmp' }
-		mavenCentral()
-	}
-    
-	dependencies {
-			classpath "de.undercouch:gradle-download-task:3.4.3"
-			classpath "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
-			classpath 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
-			classpath 'doomaykacheckstylecriticplugin:parseReport:1.0.0'
-    }	
+buildscript {
+    repositories {
+        flatDir { dirs 'build/tmp' }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "de.undercouch:gradle-download-task:3.4.3"
+        classpath "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
+        classpath 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
+        classpath 'doomaykacheckstylecriticplugin:parseReport:1.0.0'
+    }
 }
 
-//...Плагины приложения
+// ...плагины приложения
 
 apply plugin: 'doomaykacheckstylecriticplugin.parseReport'
 
-//...Скрипт пользователя
+//...скрипт пользователя
 ```
 
 Затем необходимо запустить установку плагина.
@@ -87,16 +88,20 @@ make help
 
 Конфигурационный блок может содержать ряд параметров:
 
-- Параметр errorMultiplier отвечает за множитель оценки ошибок (принимает число). 
+- Параметр errorMultiplier отвечает за множитель оценки ошибок (принимает число).
 - Параметр warningMultiplier отвечает за множитель оценки предупреждений (принимает число).
 - Параметр refactorMultiplier отвечает за множитель оценки ошибок оформления кода (принимает число).
 - Параметр conventionMultiplier отвечает за множитель оценки ошибок стандартов кода (принимает число).
 - Параметр XMLpath отвечает за путь к XML файлу отчёта CheckStyle (принимает строку).
 - Параметр XMLname отвечает за имя XML файла отчёта CheckStyle (принимает строку).
-- Параметр errorMessages отвечает за виды ошибок, которые будут учитываться при получении оценки (принимает массив строк). 
-- Параметр warningMessages отвечает за виды предупреждений, которые будут учитываться при получении оценки (принимает массив строк). 
-- Параметр refactorMessages отвечает за виды ошибок оформления кода, которые будут учитываться при получении оценки (принимает массив строк). 
-- Параметр conventionMessages отвечает за виды ошибок стандартов кода, которые будут учитываться при получении оценки (принимает массив строк).
+- Параметр errorMessages отвечает за виды ошибок, которые будут учитываться при получении оценки
+  (принимает массив строк).
+- Параметр warningMessages отвечает за виды предупреждений, которые будут учитываться при получении оценки
+  (принимает массив строк).
+- Параметр refactorMessages отвечает за виды ошибок оформления кода, которые будут учитываться при получении оценки
+  (принимает массив строк).
+- Параметр conventionMessages отвечает за виды ошибок стандартов кода, которые будут учитываться при получении оценки
+  (принимает массив строк).
 - Параметр messages отвечает за выводимые в консоль сообщения (принимает массив строк).
 
 В сообщениях консоли можно использовать метки для рассчитанных значений:
@@ -115,18 +120,16 @@ make help
 Пример конфигурационного блока:
 
 ```groovy
-//...
-
 apply plugin: 'doomaykacheckstylecriticplugin.parseReport'
 
 CheckStyleCritic{
-	messages = ["\\\\Doomayka CheckStyle critic//"
-				, "Lines prepared: %lc"
-				, "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10"
-				, "V01d result: %r"
-				] as String[]
-	conventionMultiplier = 1
-}
+    messages = [
+        "\\\\Doomayka CheckStyle critic//",
+        "Lines prepared: %lc",
+        "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10",
+        "V01d result: %r"
+    ] as String[]
 
-//...
+    conventionMultiplier = 1
+}
 ```

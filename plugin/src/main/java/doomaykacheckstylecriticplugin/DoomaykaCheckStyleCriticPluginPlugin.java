@@ -11,8 +11,10 @@ public class DoomaykaCheckStyleCriticPluginPlugin implements Plugin<Project> {
     public void apply(Project project) {
 
         // Create extension for plugin
-        DoomaykaCheckStyleCriticPluginExtension extension = project.getExtensions().create("CheckStyleCritic",
-                DoomaykaCheckStyleCriticPluginExtension.class);
+        DoomaykaCheckStyleCriticPluginExtension extension = project.getExtensions().create(
+            "CheckStyleCritic",
+            DoomaykaCheckStyleCriticPluginExtension.class
+        );
 
         // Register a task
         project.getTasks().register("parseReport", task -> {

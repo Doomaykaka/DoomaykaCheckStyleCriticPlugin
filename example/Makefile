@@ -28,4 +28,3 @@ install:
 	gradle build > log.txt
 checkApp:
 	gradle parseReport
-	

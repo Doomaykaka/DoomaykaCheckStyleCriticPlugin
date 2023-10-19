@@ -5,19 +5,19 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/8.0.1/userguide/building_java_projects.html
  */
- 
-buildscript {		
-	repositories {
-		flatDir { dirs 'build/tmp' }
-		mavenCentral()
-	}
-    
-	dependencies {
-			classpath "de.undercouch:gradle-download-task:3.4.3"
-			classpath "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
-			classpath 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
-			classpath 'doomaykacheckstylecriticplugin:parseReport:1.0.0'
-    }	
+
+buildscript {
+    repositories {
+        flatDir { dirs 'build/tmp' }
+        mavenCentral()
+    }
+
+    dependencies {
+            classpath "de.undercouch:gradle-download-task:3.4.3"
+            classpath "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
+            classpath 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
+            classpath 'doomaykacheckstylecriticplugin:parseReport:1.0.0'
+    }
 }
 
 plugins {
@@ -33,12 +33,12 @@ repositories {
 }
 
 CheckStyleCritic{
-	messages = ["\\\\Doomayka CheckStyle critic//"
-				, "Lines prepared: %lc"
-				, "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10"
-				, "V01d result: %r"
-				] as String[]
-	conventionMultiplier = 1
+    messages = ["\\\\Doomayka CheckStyle critic//"
+                , "Lines prepared: %lc"
+                , "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10"
+                , "V01d result: %r"
+                ] as String[]
+    conventionMultiplier = 1
 }
 
 dependencies {

@@ -3,12 +3,12 @@ plugins {
 }
 
 apply plugin: 'de.undercouch.download'
-	
+
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 download {
-	src 'https://github.com/Doomaykaka/JavaLibsOpened/raw/main/dcscp/ParseReport-1.0.0.jar'
-	dest 'build/tmp/'
+    src 'https://github.com/Doomaykaka/JavaLibsOpened/raw/main/dcscp/ParseReport-1.0.0.jar'
+    dest 'build/tmp/'
 }

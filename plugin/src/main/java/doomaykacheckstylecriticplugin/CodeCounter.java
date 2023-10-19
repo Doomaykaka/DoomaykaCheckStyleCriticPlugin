@@ -22,8 +22,13 @@ public class CodeCounter {
     private int conventionsCounter;
     private long linesPrepared;
 
-    public CodeCounter(CheckStyleModel model, int errorMultiplier, int warningMultiplier, int refactorMultiplier,
-            int conventionMultiplier) {
+    public CodeCounter(
+        CheckStyleModel model,
+        int errorMultiplier,
+        int warningMultiplier,
+        int refactorMultiplier,
+        int conventionMultiplier
+    ) {
         this.model = model;
 
         setErrorMessages(new ArrayList<>());
@@ -35,12 +40,12 @@ public class CodeCounter {
         this.warningMultiplier = warningMultiplier;
         this.refactorMultiplier = refactorMultiplier;
         this.conventionMultiplier = conventionMultiplier;
-        
+
         errorsCounter = 0;
         warningsCounter = 0;
         refactorsCounter = 0;
         conventionsCounter = 0;
-        
+
         linesPrepared = 0;
     }
 
@@ -50,8 +55,12 @@ public class CodeCounter {
 
         calculateErrorsCount();
 
-        float totalCritics = (errorMultiplier * errorsCounter + warningMultiplier * warningsCounter
-                + refactorMultiplier * refactorsCounter + conventionMultiplier * conventionsCounter);
+        float totalCritics = (
+            errorMultiplier * errorsCounter
+            + warningMultiplier * warningsCounter
+            + refactorMultiplier * refactorsCounter
+            + conventionMultiplier * conventionsCounter
+        );
 
         float rating = 10 - (totalCritics / linesCount) * 10;
 
@@ -91,33 +100,15 @@ public class CodeCounter {
         for (CheckStyleFileModel file : model.getFiles()) {
             for (CheckStyleErrorModel error : file.getErrors()) {
                 String message = error.getMessage();
-                boolean containsErrors = errorMessages.contains(message);
-                boolean containsWarnings = warningMessages.contains(message);
-                boolean containsRefactors = refactorMessages.contains(message);
-                boolean containsConvention = conventionMessages.contains(message);
 
-                if (containsErrors) {
-                    conventionsCounter++;
-                }
-
-                if (containsWarnings) {
+                if (errorMessages.contains(message)) {
+                    errorsCounter++;
+                } else if (warningMessages.contains(message)) {
                     warningsCounter++;
-                }
-
-                if (containsRefactors) {
+                } else if (refactorMessages.contains(message)) {
                     refactorsCounter++;
-                }
-
-                if (containsConvention) {
-                    conventionsCounter++;
-                }
-
-                if (
-                   !containsErrors 
-                   && !containsWarnings 
-                   && !containsRefactors 
-                   && !containsConvention
-                   ) {
+                } else {
+                    // Convention or unknown error
                     conventionsCounter++;
                 }
             }
@@ -139,7 +130,7 @@ public class CodeCounter {
     public void setConventionMessages(List<String> conventionMessages) {
         this.conventionMessages = conventionMessages;
     }
-    
+
     public int getErrorsCounter() {
         return errorsCounter;
     }
@@ -147,7 +138,7 @@ public class CodeCounter {
     public void setErrorsCounter(int errorsCounter) {
         this.errorsCounter = errorsCounter;
     }
-    
+
     public int getWarningsCounter() {
         return warningsCounter;
     }
@@ -155,7 +146,7 @@ public class CodeCounter {
     public void setWarningsCounter(int warningsCounter) {
         this.warningsCounter = warningsCounter;
     }
-    
+
     public int getRefactorsCounter() {
         return refactorsCounter;
     }
@@ -163,7 +154,7 @@ public class CodeCounter {
     public void setRefactorsCounter(int refactorsCounter) {
         this.refactorsCounter = refactorsCounter;
     }
-    
+
     public int getConventionsCounter() {
         return conventionsCounter;
     }

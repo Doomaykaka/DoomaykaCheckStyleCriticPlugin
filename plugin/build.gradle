@@ -20,30 +20,30 @@ repositories {
 version = '1.0.0'
 group = 'doomaykacheckstylecriticplugin'
 
-dependencies {  
+dependencies {
     implementation "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
-    
+
     // Use JUnit Jupiter for testing.
     implementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 }
 
 gradlePlugin {
-	website = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
-  	vcsUrl = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
+    website = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
+    vcsUrl = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
     // Define the plugin
     plugins {
         parseReport {
             id = 'doomaykacheckstylecriticplugin.parseReport'
             group = 'doomaykacheckstylecriticplugin.parseReport'
             implementationClass = 'doomaykacheckstylecriticplugin.DoomaykaCheckStyleCriticPluginPlugin'
-        	version = "1.0.0"
-        	displayName = 'CheckStyle critic plugin'
-        	description = 'CheckStyle critic plugin'
-        	tags.set(['lint', 'style', 'jylint'])
-        	//name == parseReport
-        }  
-    }      
+            version = "1.0.0"
+            displayName = 'CheckStyle critic plugin'
+            description = 'CheckStyle critic plugin'
+            tags.set(['lint', 'style', 'jylint'])
+            //name == parseReport
+        }
+    }
 }
 
 tasks.named('test') {
