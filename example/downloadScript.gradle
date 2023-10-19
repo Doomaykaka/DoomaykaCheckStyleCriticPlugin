@@ -9,6 +9,6 @@ repositories {
 }
 
 download {
-	src 'https://github.com/Doomaykaka/JavaLibsOpened/raw/fdd877ea629f94e904c65ae7e689a955ce499d9c/dcscp/ParseReport-1.0.0.jar'
+	src 'https://github.com/Doomaykaka/JavaLibsOpened/raw/main/dcscp/ParseReport-1.0.0.jar'
 	dest 'build/tmp/'
 }
