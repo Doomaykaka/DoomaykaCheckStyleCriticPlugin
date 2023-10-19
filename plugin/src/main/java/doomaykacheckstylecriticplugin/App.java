@@ -6,7 +6,7 @@ import java.util.List;
 import org.gradle.api.Project;
 
 public class App {
-    public static void start(Project project, DoomaykaCheckStyleCriticPluginExtension extension) {    
+    public static void start(Project project, DoomaykaCheckStyleCriticPluginExtension extension) {
         // User script variables
         String XMLpath = extension.getXMLpath();
         String XMLname = extension.getXMLname();
@@ -20,7 +20,7 @@ public class App {
         int warningMultiplier = extension.getWarningMultiplier();
         int refactorMultiplier = extension.getRefactorMultiplier();
         int conventionMultiplier = extension.getConventionMultiplier();
-        
+
         // Console messages
         String[] messages = extension.getMessages();
 
@@ -38,14 +38,14 @@ public class App {
 
         csp.readXML();
         CheckStyleModel model = csp.getXmlUnparsed();
-        
+
         CodeCounter counter = new CodeCounter(
-                                  model, 
-                                  errorMultiplier, 
-                                  warningMultiplier, 
-                                  refactorMultiplier,
-                                  conventionMultiplier
-                                  );
+            model,
+            errorMultiplier,
+            warningMultiplier,
+            refactorMultiplier,
+            conventionMultiplier
+        );
 
         if (!errorMessages.isEmpty()) {
             counter.setErrorMessages(errorMessages);
@@ -67,18 +67,18 @@ public class App {
         rating = counter.calculate();
 
         MessageGenerator mGenerator = new MessageGenerator(
-                                          rating, 
-                                          counter.getLinesPrepared(), 
-                                          errorMultiplier,
-                                          warningMultiplier, 
-                                          refactorMultiplier, 
-                                          conventionMultiplier, 
-                                          counter.getErrorsCounter(),
-                                          counter.getWarningsCounter(),
-                                          counter.getRefactorsCounter(),
-                                          counter.getConventionsCounter(),
-                                          messages
-                                          );
+            rating,
+            counter.getLinesPrepared(),
+            errorMultiplier,
+            warningMultiplier,
+            refactorMultiplier,
+            conventionMultiplier,
+            counter.getErrorsCounter(),
+            counter.getWarningsCounter(),
+            counter.getRefactorsCounter(),
+            counter.getConventionsCounter(),
+            messages
+        );
         mGenerator.printMessages();
     }
 }

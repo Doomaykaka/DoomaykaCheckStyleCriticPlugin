@@ -14,25 +14,25 @@ public class MessageGenerator {
     private float rating; // %r
 
     MessageGenerator(
-                    float rating, 
-                    long linesCount, 
-                    int errorMultiplier, 
-                    int warningMultiplier, 
-                    int refactorMultiplier,
-                    int conventionMultiplier, 
-                    int errorsCounter, 
-                    int warningsCounter, 
-                    int refactorsCounter, 
-                    int conventionsCounter, 
-                    String[] messages) {
-        if (messages == null) {
-            messages = new String[] { "\\\\Doomayka CheckStyle critic//", "Lines prepared: %lc",
-                    "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10", "Result: %r" };
-        } else {
-            if (messages.length == 0) {
-                messages = new String[] { "\\\\Doomayka CheckStyle critic//", "Lines prepared: %lc",
-                        "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10", "Result: %r" };
-            }
+        float rating,
+        long linesCount,
+        int errorMultiplier,
+        int warningMultiplier,
+        int refactorMultiplier,
+        int conventionMultiplier,
+        int errorsCounter,
+        int warningsCounter,
+        int refactorsCounter,
+        int conventionsCounter,
+        String[] messages
+    ) {
+        if (messages == null || messages.length == 0) {
+            messages = new String[] {
+                "\\\\Doomayka CheckStyle critic//",
+                "Lines prepared: %lc",
+                "By expression: 10-((%emp*%ect+%wmp*%wct+%rmp*%rct+%cmp*%cct)/%lc)*10",
+                "Result: %r"
+            };
         }
 
         this.messages = messages;

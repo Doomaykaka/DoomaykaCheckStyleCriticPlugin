@@ -29,7 +29,7 @@ public class CheckStyleParser {
     public CheckStyleParser(Project project) {
         try {
             String separator = "";
-            
+
             checkRootPath = project.getProjectDir().toURI().toString();
             int dirSlashIdx = 0;
             dirSlashIdx = checkRootPath.lastIndexOf("/");
@@ -45,7 +45,7 @@ public class CheckStyleParser {
                     throw new URISyntaxException("checkRootPathString", "Bad path");
                 }
             }
-            
+
             dirSlashIdx = checkRootPath.indexOf(separator);
             checkRootPath = checkRootPath.substring(dirSlashIdx + 1);
 
@@ -71,12 +71,12 @@ public class CheckStyleParser {
 
     public void readXML() {
         try {
-            if (XMLpath.equals("")) {   
+            if (XMLpath.equals("")) {
                 File rootDir = new File(checkRootPath);
                 String[] files = rootDir.list();
 
                 buildPathsRecursive(files, checkRootPath);
-                
+
                 if (rootFilesPathStrings.size() == 0) {
                     throw new FileNotFoundException("XML not founded");
                 }
@@ -97,11 +97,10 @@ public class CheckStyleParser {
         if (files != null) {
             for (String file : files) {
                 File dot = new File(rootPath + fsSeparator + file);
-                if (dot.isFile()) {
-                    if (dot.getName().equals(this.XMLname)) {
-                        rootFilesPathStrings.add(dot.getPath());
-                    }
+                if (dot.isFile() && dot.getName().equals(this.XMLname)) {
+                    rootFilesPathStrings.add(dot.getPath());
                 }
+
                 if (dot.isDirectory()) {
                     String[] subFiles = dot.list();
                     for (int i = 0; i < subFiles.length; i++) {
@@ -122,11 +121,12 @@ public class CheckStyleParser {
             Scanner scanner;
             try {
                 scanner = new Scanner(new File(filePath));
-
                 scanner.useDelimiter(System.getProperty("line.separator"));
+
                 while (scanner.hasNext()) {
                     XMLString += scanner.next();
                 }
+
                 scanner.close();
             } catch (FileNotFoundException e) {
                 System.out.println("XML file reading error");
@@ -140,11 +140,18 @@ public class CheckStyleParser {
 
             JAXBContext context;
             try {
-                context = org.eclipse.persistence.jaxb.JAXBContextFactory
-                        .createContext(new Class[] { CheckStyleModel.class }, null);
+                context = (
+                    org
+                    .eclipse
+                    .persistence
+                    .jaxb
+                    .JAXBContextFactory
+                    .createContext(new Class[] { CheckStyleModel.class }, null)
+                );
 
                 Unmarshaller unmarshaller = context.createUnmarshaller();
                 CheckStyleModel checkStyleReport = (CheckStyleModel) unmarshaller.unmarshal(fis);
+
                 this.data = checkStyleReport;
             } catch (JAXBException e) {
                 System.out.println("XML file not parsed");
