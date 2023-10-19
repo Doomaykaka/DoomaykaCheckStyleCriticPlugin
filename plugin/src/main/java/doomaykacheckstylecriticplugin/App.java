@@ -6,9 +6,7 @@ import java.util.List;
 import org.gradle.api.Project;
 
 public class App {
-    public static void start(Project project, DoomaykaCheckStyleCriticPluginExtension extension) {   
-        System.out.println("Start");
-        
+    public static void start(Project project, DoomaykaCheckStyleCriticPluginExtension extension) {    
         // User script variables
         String XMLpath = extension.getXMLpath();
         String XMLname = extension.getXMLname();
