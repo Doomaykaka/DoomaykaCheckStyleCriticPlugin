@@ -96,6 +96,9 @@ public class CodeCounter {
         if (this.model == null) {
             return;
         }
+        
+        //Remove me
+        System.out.println("Files count" + model.getFiles().size());
 
         for (CheckStyleFileModel file : model.getFiles()) {
             for (CheckStyleErrorModel error : file.getErrors()) {
