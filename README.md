@@ -107,7 +107,7 @@ apply plugin: 'doomaykacheckstylecriticplugin.parseReport'
 Для запуска нужно выполнить команду:
 
 ```bash
-gradle checkApp
+gradle parseReport
 ```
 
 ## Конфигурация
