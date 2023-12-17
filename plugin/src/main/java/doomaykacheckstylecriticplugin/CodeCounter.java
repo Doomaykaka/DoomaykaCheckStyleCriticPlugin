@@ -76,12 +76,6 @@ public class CodeCounter {
                 try {
                     String trash = "";
                     scanner = new Scanner(new File(file.getFileName()));
-
-//                    scanner.useDelimiter(System.getProperty("line.separator"));
-//                    while (scanner.hasNext()) {
-//                        scanner.next();
-//                        linesCount++;
-//                    }
                     
                     while(scanner.hasNextLine()) {
                         trash = scanner.nextLine();
@@ -102,9 +96,6 @@ public class CodeCounter {
         if (this.model == null) {
             return;
         }
-        
-        //Remove me
-        System.out.println("Files count" + model.getFiles().size());
 
         for (CheckStyleFileModel file : model.getFiles()) {
             for (CheckStyleErrorModel error : file.getErrors()) {

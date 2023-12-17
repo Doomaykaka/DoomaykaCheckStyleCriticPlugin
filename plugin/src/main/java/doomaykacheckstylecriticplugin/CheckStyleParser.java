@@ -87,15 +87,9 @@ public class CheckStyleParser {
 
                 XMLpath = rootFilesPathStrings.get(0);
             }
-            
-            //Remove me
-            System.out.println(XMLpath);
 
             readXMLFile(XMLpath);
             
-            //Remove me
-            System.out.println(XMLString);
-
             parseXMLFile(XMLString);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
