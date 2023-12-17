@@ -17,7 +17,6 @@ build:
 clean:
 	gradle clean
 install:
-	wget https://raw.githubusercontent.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin/main/example/downloadScript.gradle
 	mkdir -p tmp
 	mkdir -p build/tmp
 	mv build.gradle tmp
@@ -26,6 +25,6 @@ install:
 	rm build.gradle
 	mv tmp/build.gradle .
 	rm -r tmp
-	rm downloadScript.gradle
+	gradle build > log.txt
 checkApp:
 	gradle parseReport
