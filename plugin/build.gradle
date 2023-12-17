@@ -9,7 +9,21 @@
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     id 'java-gradle-plugin'
-    id 'com.gradle.plugin-publish' version '1.2.1'
+	//id 'com.gradle.plugin-publish' version '1.2.1'
+	id 'maven-publish'
+}
+
+publishing {
+	repositories {
+    maven {
+      name = "GitHubPackages"
+      url = "https://maven.pkg.github.com/"+githubusr+"/"+githubrep+"/"
+      credentials {
+        username = mySecureRepositoryUsername
+        password = mySecureRepositoryPassword
+      }
+    }
+  }
 }
 
 repositories {
@@ -17,8 +31,9 @@ repositories {
     mavenCentral()
 }
 
-version = '1.0.1'
-group = 'doomaykacheckstylecriticplugin'
+//version = '1.0.1'
+//group = 'doomaykacheckstylecriticplugin'
+//id = 'plugin'
 
 dependencies {
     implementation "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
@@ -31,13 +46,13 @@ dependencies {
 gradlePlugin {
     website = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
     vcsUrl = 'https://github.com/Doomaykaka/DoomaykaCheckStyleCriticPlugin'
-    // Define the plugin
+    //Define the plugin
     plugins {
         parseReport {
-            id = 'doomaykacheckstylecriticplugin.parseReport'
-            group = 'doomaykacheckstylecriticplugin.parseReport'
+            id = 'parseReport'
+            group = 'doomaykacheckstylecriticplugin'
             implementationClass = 'doomaykacheckstylecriticplugin.DoomaykaCheckStyleCriticPluginPlugin'
-            version = "1.0.0"
+            version = "1.0.1"
             displayName = 'CheckStyle critic plugin'
             description = 'CheckStyle critic plugin'
             tags.set(['lint', 'style', 'jylint'])
