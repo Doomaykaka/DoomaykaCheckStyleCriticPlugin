@@ -74,11 +74,17 @@ public class CodeCounter {
             for (CheckStyleFileModel file : this.model.getFiles()) {
                 Scanner scanner;
                 try {
+                    String trash = "";
                     scanner = new Scanner(new File(file.getFileName()));
 
-                    scanner.useDelimiter(System.getProperty("line.separator"));
-                    while (scanner.hasNext()) {
-                        scanner.next();
+//                    scanner.useDelimiter(System.getProperty("line.separator"));
+//                    while (scanner.hasNext()) {
+//                        scanner.next();
+//                        linesCount++;
+//                    }
+                    
+                    while(scanner.hasNextLine()) {
+                        trash = scanner.nextLine();
                         linesCount++;
                     }
 
