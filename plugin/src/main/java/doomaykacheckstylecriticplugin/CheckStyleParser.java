@@ -31,6 +31,10 @@ public class CheckStyleParser {
             String separator = "";
 
             checkRootPath = project.getProjectDir().toURI().toString();
+            
+            //Remove me
+            System.out.println(checkRootPath);
+            
             int dirSlashIdx = 0;
             dirSlashIdx = checkRootPath.lastIndexOf("/");
             if (dirSlashIdx != -1) {
@@ -83,8 +87,14 @@ public class CheckStyleParser {
 
                 XMLpath = rootFilesPathStrings.get(0);
             }
+            
+            //Remove me
+            System.out.println(XMLpath);
 
             readXMLFile(XMLpath);
+            
+            //Remove me
+            System.out.println(XMLString);
 
             parseXMLFile(XMLString);
         } catch (FileNotFoundException e) {
