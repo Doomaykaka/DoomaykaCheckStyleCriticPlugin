@@ -19,7 +19,7 @@
 - Gradle 8.0.1 и выше
 - Make 5.2 и выше
 
-### Запуск плагина
+### Запуск плагина (способ 1)
 
 Для использования плагина необходимо скачать файл (папка example):
 
@@ -77,6 +77,39 @@ make checkApp
 make help
 ```
 
+### Запуск плагина (способ 2)
+
+Для использования плагина необходимо изменить содержимое своего build.gradle скрипта:
+
+```groovy
+buildscript {
+    repositories {
+        mavenCentral()
+		maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        classpath "org.eclipse.persistence:org.eclipse.persistence.moxy:3.0.0"
+        classpath 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
+        //classpath 'doomaykacheckstylecriticplugin:parseReport:1.0.0'
+		
+		classpath 'com.github.Doomaykaka:DoomaykaCheckStyleCriticPlugin:1.0.5'
+    }
+}
+
+// ...плагины приложения
+
+apply plugin: 'doomaykacheckstylecriticplugin.parseReport'
+
+//...скрипт пользователя
+```
+
+Для запуска нужно выполнить команду:
+
+```bash
+gradle checkApp
+```
+
 ## Конфигурация
 
 Для настройки плагина в скрипте build.gradle можно создать блок CheckStyleCritic.
@@ -88,7 +121,7 @@ make help
 - Параметр warningMultiplier отвечает за множитель оценки предупреждений (принимает число).
 - Параметр refactorMultiplier отвечает за множитель оценки ошибок оформления кода (принимает число).
 - Параметр conventionMultiplier отвечает за множитель оценки ошибок стандартов кода (принимает число).
-- Параметр XMLpath отвечает за путь к XML файлу отчёта CheckStyle (принимает строку).
+- Параметр XMLpath отвечает за путь к папке с XML файлами отчётов CheckStyle (принимает строку).
 - Параметр XMLname отвечает за имя XML файла отчёта CheckStyle (принимает строку).
 - Параметр errorMessages отвечает за виды ошибок, которые будут учитываться при получении оценки
   (принимает массив строк).
