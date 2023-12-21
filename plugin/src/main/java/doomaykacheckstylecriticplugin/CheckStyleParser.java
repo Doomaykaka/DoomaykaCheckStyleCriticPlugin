@@ -32,9 +32,6 @@ public class CheckStyleParser {
 
             checkRootPath = project.getProjectDir().toURI().toString();
             
-            //Remove me
-            System.out.println(checkRootPath);
-            
             int dirSlashIdx = 0;
             dirSlashIdx = checkRootPath.lastIndexOf("/");
             if (dirSlashIdx != -1) {

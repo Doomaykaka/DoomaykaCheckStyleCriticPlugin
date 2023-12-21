@@ -93,7 +93,7 @@ buildscript {
         classpath 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
         //classpath 'doomaykacheckstylecriticplugin:parseReport:1.0.0'
 		
-		classpath 'com.github.Doomaykaka:DoomaykaCheckStyleCriticPlugin:1.0.5'
+		classpath 'com.github.Doomaykaka:DoomaykaCheckStyleCriticPlugin:1.0.6'
     }
 }
 
